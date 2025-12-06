@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 
 function App() {
   const [productsList, setProductsList] = useState<ProductsList | null>(null);
+  const [totalAddToCartAmount, settotalAddToCartAmount] = useState<number>(0)
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,8 +25,15 @@ function App() {
 
   return (
     <div>
-      <Header />
-      <Products products={productsList} />
+      <Header
+        totalAddToCartAmount={totalAddToCartAmount}
+        settotalAddToCartAmount={settotalAddToCartAmount}
+      />
+      <Products
+        products={productsList}
+        totalAddToCartAmount={totalAddToCartAmount}
+        settotalAddToCartAmount={settotalAddToCartAmount}
+      />
       <Footer />
     </div>
   );

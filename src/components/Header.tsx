@@ -1,5 +1,6 @@
+import { type AddToCartProps } from "../interfaces/addToCartAmount";
 
-export default function Header() {
+export default function Header({totalAddToCartAmount}:AddToCartProps) {
   return (
     <div className='fixed w-full h-30 bg-gradient-to-l from-orange-500 to-red-500 flex'>
       <div className='w-[20%]'></div>
@@ -14,8 +15,9 @@ export default function Header() {
             <img className='w-[25px]' src="/search-icon.png" alt="search-icon" />
           </button>
         </div>
-        <div className="w-[30px] flex justify-center items-center flex-shrink-0 cursor-pointer cursor-pointer">
+        <div className="w-[30px] flex justify-center items-center flex-shrink-0 cursor-pointer cursor-pointer relative">
           <img className='w-full' src="/cart-icon.png" alt="cart-icon" />
+          <div className="text-orange-500 font-bold absolute bg-white h-4 p-1 rounded-[50%] -top-2 -right-1 flex items-center justify-center">{totalAddToCartAmount}</div>
         </div>
       </div>
       <div className='w-[20%] flex justify-end'></div>
