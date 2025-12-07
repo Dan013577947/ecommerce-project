@@ -1,41 +1,24 @@
-import axios from "axios";
-import Header from "./components/Header";
-import Products from "./components/Products";
-import { useEffect, useState } from "react";
-import { type ProductsList } from "./interfaces/products";
-import Footer from "./components/Footer";
-
+import { Route, Routes } from "react-router";
+import Home from "./pages/home/Home";
+import Cart from "./pages/cart/Cart";
+import { useState } from "react";
 
 function App() {
-  const [productsList, setProductsList] = useState<ProductsList | null>(null);
-  const [totalAddToCartAmount, settotalAddToCartAmount] = useState<number>(0)
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get<ProductsList>('https://dummyjson.com/products')
-        setProductsList(response.data)
-      }
-      catch (error) {
-        console.log("Error fetching products", error)
-      }
-    }
-    fetchProducts()
-  }, [])
+  const [totalAddToCartAmount, setTotalAddToCartAmount] = useState<number>(0)
 
   return (
-    <div>
-      <Header
-        totalAddToCartAmount={totalAddToCartAmount}
-        settotalAddToCartAmount={settotalAddToCartAmount}
-      />
-      <Products
-        products={productsList}
-        totalAddToCartAmount={totalAddToCartAmount}
-        settotalAddToCartAmount={settotalAddToCartAmount}
-      />
-      <Footer />
-    </div>
+    <Routes>
+      <Route element={
+        <Home
+          totalAddToCartAmount={totalAddToCartAmount}
+          setTotalAddToCartAmount={setTotalAddToCartAmount}
+        />} path="/" />
+      <Route element={
+        <Cart
+          totalAddToCartAmount={totalAddToCartAmount}
+          setTotalAddToCartAmount={setTotalAddToCartAmount}
+        />} path="/cart" />
+    </Routes>
   );
 }
 
