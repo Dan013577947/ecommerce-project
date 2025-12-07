@@ -1,7 +1,7 @@
-
-import { useState } from "react";
 import { type Product, type ProductsList } from "../../interfaces/products";
-
+import {  useState } from "react";
+import axios from "axios";
+import { type CartList } from "../../interfaces/carts";
 interface ProductProps {
   product: Product;
   products: ProductsList | null;
@@ -11,16 +11,30 @@ interface ProductProps {
 
 export default function Product({ product, totalAddToCartAmount, settotalAddToCartAmount }: ProductProps) {
   const [addAmount, setAddAmount] = useState<number>(1)
+  const [carts, setCarts] = useState<CartList | null>(null)
 
-  const handleAddToCart = (event:React.MouseEvent) => {
+  const handleAddToCart = (event: React.MouseEvent) => {
     event.preventDefault()
+    const addToCart = async () => {
+      const response = await axios.post('https://dummyjson.com/carts/add', {
+        userId: 1,
+        products: [
+          { id: product.id, quantity: addAmount }
+        ]
+      })
+      setCarts(response.data)
+    }
+    addToCart()
     settotalAddToCartAmount(totalAddToCartAmount + addAmount);
     setAddAmount(1)
   }
 
+
   const handleAmountAddToCart = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAddAmount(Number(event.target.value))
   }
+
+  console.log(carts)
   return (
     <>
       <div key={product.id} className="bg-white w-47 h-70 shadow-[0px_0px_2px_rgba(0,0,0,0.4)] p-2 flex flex-col justify-between">

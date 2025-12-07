@@ -1,22 +1,7 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { type CartList } from "../../interfaces/carts";
 import { Link } from "react-router";
 
 export default function Cart() {
-  const [carts, setCarts] = useState<CartList | null>(null)
-
-  useEffect(() => {
-    const fetchCartData = async () => {
-      const response = await axios.get('https://dummyjson.com/carts')
-      setCarts(response.data)
-    }
-    fetchCartData()
-  }, [])
-
-
   return (
-
     <div>
       <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center">
         <div className="w-[20%]"></div>
@@ -46,19 +31,7 @@ export default function Cart() {
           </div>
           <div className="flex justify-between">
             <div>
-              {carts?.carts.map(cart=>{
-                return(
-                  <div key={cart.id} className="bg-white my-10">
-                    {cart.products.map(product=>{
-                      return(
-                        <div>
-                          {product.title}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
+              Cart here
             </div>
             <div>Order Summary</div>
           </div>
