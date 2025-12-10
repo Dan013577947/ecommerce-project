@@ -11,7 +11,7 @@ interface ProductsProps {
   setTotalAddToCartAmount: React.Dispatch<React.SetStateAction<number>>
 }
 
-export default function Products({ carts, setCarts, products, setTotalAddToCartAmount }: ProductsProps) {
+export default function Products({ setCarts, products, setTotalAddToCartAmount }: ProductsProps) {
 
 
   const handleAddToCart = (product: ProductType, addAmount: number) => {

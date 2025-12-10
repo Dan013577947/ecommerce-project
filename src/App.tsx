@@ -30,7 +30,10 @@ function App() {
         />} path="/" />
       <Route element={
         <Cart
+          carts={carts}
+          setCarts={setCarts}
           totalAddToCartAmount={totalAddToCartAmount}
+          setTotalAddToCartAmount={setTotalAddToCartAmount}
         />} path="/cart" />
     </Routes>
   );
