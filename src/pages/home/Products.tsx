@@ -10,12 +10,12 @@ interface ProductsProps {
 }
 
 export default function Products({ products, setTotalAddToCartAmount }: ProductsProps) {
-  const [carts, setCarts] = useState<Cart[]>(()=>{
+  const [carts, setCarts] = useState<Cart[]>(() => {
     const savedItem = localStorage.getItem('carts')
     return savedItem ? JSON.parse(savedItem) : []
   })
 
-  const handleAddToCart = (product:ProductType, addAmount:number) => {
+  const handleAddToCart = (product: ProductType, addAmount: number) => {
     const addToCart = async () => {
       const response = await axios.post('https://dummyjson.com/carts/add', {
         userId: 1,
@@ -23,16 +23,40 @@ export default function Products({ products, setTotalAddToCartAmount }: Products
           { id: product.id, quantity: addAmount }
         ]
       })
-      setCarts(prev=>{
-        const updated = [...prev, response.data]
-        localStorage.setItem('carts', JSON.stringify(updated))
-        return updated
+      setCarts(prev => {
+
+        const existing = prev.find(item => item.products[0].id === response.data.products[0].id)
+        if (existing) {
+          const updated =  prev.map(item => item.products[0].id === response.data.products[0].id
+            ? {
+              ...item,
+              discountedTotal: item.discountedTotal + response.data.discountedTotal,
+              products: [{
+                ...item.products[0],
+                discountedPrice: item.products[0].discountedPrice + response.data.products[0].discountedPrice,
+                quantity: item.products[0].quantity + response.data.products[0].quantity,
+                total: item.products[0].total + response.data.products[0].total
+              }],
+              total: item.total + response.data.total,
+              totalQuantity: item.totalQuantity + response.data.totalQuantity
+            }
+            : item
+          )
+          localStorage.setItem('carts', JSON.stringify(updated))
+          return updated
+        }
+        else {
+          const updated = [...prev, response.data]
+          localStorage.setItem('carts', JSON.stringify(updated))
+          return updated
+        }
+
       })
     }
     addToCart()
     setTotalAddToCartAmount(prev => prev + addAmount);
   }
-
+  localStorage.removeItem('carts')
   console.log(carts)
   return (
     <div className="pt-35 flex">

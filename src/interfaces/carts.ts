@@ -1,7 +1,7 @@
 
 export interface CartProduct {
   discountPercentage:number;
-  discountedTotal:number;
+  discountedPrice:number;
   id:number;
   price:number;
   quantity:number;
@@ -16,7 +16,7 @@ export interface Cart {
   products: CartProduct[];
   total:number;
   totalProducts:number;
-  totalQuanity:number;
+  totalQuantity:number;
   userId:number;
 }
 
