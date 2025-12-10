@@ -16,7 +16,7 @@ function App() {
       totalQuantityInsideCart += cart.totalQuantity
     })
   }
-  
+
   const [totalAddToCartAmount, setTotalAddToCartAmount] = useState<number>(totalQuantityInsideCart)
 
   return (
@@ -30,6 +30,7 @@ function App() {
         />} path="/" />
       <Route element={
         <Cart
+          totalAddToCartAmount={totalAddToCartAmount}
         />} path="/cart" />
     </Routes>
   );

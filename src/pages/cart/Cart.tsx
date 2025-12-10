@@ -1,6 +1,8 @@
 import { Link } from "react-router";
+import type { AddToCartProps } from "../../interfaces/addToCartAmount";
 
-export default function Cart() {
+export default function Cart({totalAddToCartAmount}:AddToCartProps) {
+  
   return (
     <div>
       <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center">
@@ -14,7 +16,7 @@ export default function Cart() {
             <div className="text-[20px] font-bold text-white">
               Checkout(
               <span className="font-normal italic">
-                {`11 items`}
+                {`${totalAddToCartAmount} items`}
               </span>
               )
             </div>
