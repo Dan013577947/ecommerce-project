@@ -3,7 +3,7 @@ import type { AddToCartProps } from "../../interfaces/addToCartAmount";
 import CartDeliveryOption from "./CartDeliveryOption";
 
 export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
-  
+
   return (
     <div>
       <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center">
@@ -40,7 +40,39 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
                 );
               })}
             </div>
-            <div>Order Summary</div>
+            <div className="bg-white h-80 w-full ml-4 p-4 flex flex-col justify-between">
+              <div>
+                <p className="font-bold text-[18px]">Order Summary</p>
+              </div>
+              <div>
+                <div className="flex justify-between py-1">
+                  <p>Items ({totalAddToCartAmount}):</p>
+                  <p>281.13</p>
+                </div>
+                <div className="flex justify-between py-1">
+                  <p>Shipping & handling:</p>
+                  <p>4.99</p>
+                </div>
+                <div className="flex justify-between py-1">
+                  <p>Total before tax:</p>
+                  <p>286.12</p>
+                </div>
+                <div className="flex justify-between py-1">
+                  <p>Estimated tax (10%)</p>
+                  <p>28.61</p>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between mb-4 text-[19px] font-bold text-red-700">
+                  <p>Order total:</p>
+                  <p>314.73</p>
+                </div>
+              </div>
+              <div>
+                <button className="bg-yellow-300 cursor-pointer w-full text-[14px] py-3 rounded-[17px] shadow-[0_0_4px_rgba(0,0,0,0.1)]">Place your order</button>
+              </div>
+
+            </div>
           </div>
 
         </div>
