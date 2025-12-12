@@ -5,8 +5,7 @@ import { cartOverallTotal } from "../../utils/cartOverallTotal";
 import fixedDecimalValue from "../../utils/fixedDecimalValue";
 
 export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
-
-  return (  
+  return (
     <div>
       <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center">
         <div className="w-[20%]"></div>
@@ -37,7 +36,6 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
           <div className="flex">
             <div>
               {carts.map(cart => {
-            
                 return (
                   <CartDeliveryOption cart={cart} key={cart.products[0].id} />
                 );
@@ -50,8 +48,7 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
               <div>
                 <div className="flex justify-between py-1">
                   <p>Items ({totalAddToCartAmount}):</p>
-                  <p>&#36;
-{fixedDecimalValue(cartOverallTotal(carts))}</p>
+                  <p>&#36;{fixedDecimalValue(cartOverallTotal(carts))}</p>
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Shipping & handling:</p>

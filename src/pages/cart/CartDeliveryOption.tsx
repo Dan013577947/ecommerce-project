@@ -8,22 +8,23 @@ interface DeliveryOptionCartProp {
 }
 
 interface DeliveryOption {
-  value: string;
+  date: string;
+  shippingPrice: string;
 }
 export default function CartDeliveryOption({ cart }: DeliveryOptionCartProp) {
 
-  const [deliveryOption, setDeliveryOption] = useState<DeliveryOption>({ value: "Monday, December 15" })
+  const [deliveryOption, setDeliveryOption] = useState<DeliveryOption>({ date: "Monday, December 15", shippingPrice: "0.00" })
 
   const handleDeliveryOption = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value
-    setDeliveryOption({ value: value })
+    const date = JSON.parse(event.target.value).date
+    const shippingPrice = JSON.parse(event.target.value).shippingPrice
+    setDeliveryOption({ date: date, shippingPrice: shippingPrice })
   }
   const totalValue = cart.total
-
-
+  console.log(deliveryOption.shippingPrice)
   return (
     <div key={cart.products[0].id} className="bg-white mb-4 w-200 h-70 p-4 border border-gray-300 rounded-[5px] shadow-[0_0_2px_rgba(0,0,0,0.1)]">
-      <div className="text-[18px] font-bold text-red-700">Delivery date: {deliveryOption.value}</div>
+      <div className="text-[18px] font-bold text-red-700">Delivery date: {deliveryOption.date}</div>
       <div className="flex">
         <img src={cart.products[0].thumbnail} className="w-40" />
         <div className="flex flex-col py-3 w-[35%]">
@@ -39,7 +40,10 @@ export default function CartDeliveryOption({ cart }: DeliveryOptionCartProp) {
           <div className="font-[500] text-[17px]">Choose a delivery option:</div>
           <div>
             <div className="flex my-3">
-              <input type="radio" name={`option-${cart.products[0].id}`} value="Monday, December 15" onChange={(event) => {
+              <input type="radio" name={`option-${cart.products[0].id}`} value={JSON.stringify({
+                date: "Monday, December 15",
+                shippingPrice: "0.00"
+              })} onChange={(event) => {
 
                 handleDeliveryOption(event)
               }} defaultChecked className="mx-2 cursor-pointer" />
@@ -49,7 +53,10 @@ export default function CartDeliveryOption({ cart }: DeliveryOptionCartProp) {
               </div>
             </div>
             <div className="flex my-3">
-              <input type="radio" name={`option-${cart.products[0].id}`} value="Tuesday, December 16" onChange={(event) => {
+              <input type="radio" name={`option-${cart.products[0].id}`} value={JSON.stringify({
+                date: "Tuesday, December 16",
+                shippingPrice: "4.99"
+              })} onChange={(event) => {
                 handleDeliveryOption(event)
               }} className="mx-2 cursor-pointer" />
               <div>
@@ -58,7 +65,10 @@ export default function CartDeliveryOption({ cart }: DeliveryOptionCartProp) {
               </div>
             </div>
             <div className="flex my-3">
-              <input type="radio" name={`option-${cart.products[0].id}`} value="Friday, December 19" onChange={(event) => {
+              <input type="radio" name={`option-${cart.products[0].id}`} value={JSON.stringify({
+                date: "Friday, December 19",
+                shippingPrice: "9.99"
+              })} onChange={(event) => {
                 handleDeliveryOption(event)
               }} className="mx-2 cursor-pointer" />
               <div>
