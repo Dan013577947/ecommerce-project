@@ -1,10 +1,12 @@
 import { Link } from "react-router";
 import type { AddToCartProps } from "../../interfaces/addToCartAmount";
 import CartDeliveryOption from "./CartDeliveryOption";
+import { cartOverallTotal } from "../../utils/cartOverallTotal";
+import fixedDecimalValue from "../../utils/fixedDecimalValue";
 
 export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
 
-  return (
+  return (  
     <div>
       <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center">
         <div className="w-[20%]"></div>
@@ -35,6 +37,7 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
           <div className="flex">
             <div>
               {carts.map(cart => {
+            
                 return (
                   <CartDeliveryOption cart={cart} key={cart.products[0].id} />
                 );
@@ -47,25 +50,26 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
               <div>
                 <div className="flex justify-between py-1">
                   <p>Items ({totalAddToCartAmount}):</p>
-                  <p>281.13</p>
+                  <p>&#36;
+{fixedDecimalValue(cartOverallTotal(carts))}</p>
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Shipping & handling:</p>
-                  <p>4.99</p>
+                  <p>&#36;4.99</p>
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Total before tax:</p>
-                  <p>286.12</p>
+                  <p>&#36;286.12</p>
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Estimated tax (10%)</p>
-                  <p>28.61</p>
+                  <p>&#36;28.61</p>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-4 text-[19px] font-bold text-red-700">
                   <p>Order total:</p>
-                  <p>314.73</p>
+                  <p>&#36;314.73</p>
                 </div>
               </div>
               <div>

@@ -40,7 +40,7 @@ export default function Product({ product, handleAddToCart }: ProductProps) {
         </div>
         <p className="text-[15px] leading-4 truncate">{product.title}</p>
         <div className="flex justify-between">
-          <p className="text-orange-500 font-medium">{"\u20B1"}{product.price}</p>
+          <p className="text-orange-500 font-medium">&#36;{product.price}</p>
           <div className="bg-gray-200 flex justify-center items-center rounded-[4px] shadow-[0_0_8px_rgba(0,0,0,0.1)] hover:border hover:border-orange-500 hover:border-2">
             <select name="amount" id={`amount-${product.id}`} className="cursor-pointer border-none outline-none w-10"
               onChange={handleAmountAddToCart}
