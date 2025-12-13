@@ -15,7 +15,7 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
 
   return (
     <div>
-      <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center">
+      <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center fixed w-full">
         <div className="w-[20%]"></div>
         <div className="w-[60%]">
           <div className="flex justify-between items-center">
@@ -35,7 +35,7 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
         </div>
         <div className="w-[20%]"></div>
       </div>
-      <div className="flex">
+      <div className="flex pt-30">
         <div className='w-[20%]'></div>
         <div className='w-[60%]'>
           <div>
@@ -64,17 +64,17 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Total before tax:</p>
-                  <p>&#36;286.12</p>
+                  <p>&#36;{fixedDecimalValue(cartOverallTotal(carts) + totalShippingAmount)}</p>
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Estimated tax (10%)</p>
-                  <p>&#36;28.61</p>
+                  <p>&#36;{fixedDecimalValue((cartOverallTotal(carts) + totalShippingAmount)/10)}</p>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-4 text-[19px] font-bold text-red-700">
                   <p>Order total:</p>
-                  <p>&#36;314.73</p>
+                  <p>&#36;{fixedDecimalValue(((cartOverallTotal(carts) + totalShippingAmount)/10) + (cartOverallTotal(carts) + totalShippingAmount))}</p>
                 </div>
               </div>
               <div>
