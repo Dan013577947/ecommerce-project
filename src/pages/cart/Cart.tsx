@@ -2,17 +2,15 @@ import { Link } from "react-router";
 import type { AddToCartProps } from "../../interfaces/addToCartAmount";
 import CartDeliveryOption from "./CartDeliveryOption";
 import { cartOverallTotal } from "../../utils/cartOverallTotal";
-import fixedDecimalValue from "../../utils/fixedDecimalValue";
+import { fixedDecimalValue, fixedDecimalValueOfTwoAddedValues } from "../../utils/fixedDecimalValue";
 import { useState } from "react";
 import type { DeliveryOption } from "../../interfaces/deliveryOption";
 
 
 export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
   const [totalShipping, setTotalShipping] = useState<DeliveryOption[]>([])
-  const totalShippingAmount = totalShipping.reduce((sum, item) => sum + JSON.parse(item.shippingPrice), 0)
-
-  console.log(totalShipping)
-
+  const totalShippingAmount = totalShipping.reduce((sum, item) => fixedDecimalValueOfTwoAddedValues(sum, JSON.parse(item.shippingPrice)), 0)
+  console.log(carts)
   return (
     <div>
       <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center fixed w-full">
@@ -64,17 +62,17 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Total before tax:</p>
-                  <p>&#36;{fixedDecimalValue(cartOverallTotal(carts) + totalShippingAmount)}</p>
+                  <p>&#36;{fixedDecimalValue(fixedDecimalValueOfTwoAddedValues(cartOverallTotal(carts), totalShippingAmount))}</p>
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Estimated tax (10%)</p>
-                  <p>&#36;{fixedDecimalValue((cartOverallTotal(carts) + totalShippingAmount)/10)}</p>
+                  <p>&#36;{fixedDecimalValue(fixedDecimalValueOfTwoAddedValues(cartOverallTotal(carts), totalShippingAmount) / 10)}</p>
                 </div>
               </div>
               <div>
                 <div className="flex justify-between mb-4 text-[19px] font-bold text-red-700">
                   <p>Order total:</p>
-                  <p>&#36;{fixedDecimalValue(((cartOverallTotal(carts) + totalShippingAmount)/10) + (cartOverallTotal(carts) + totalShippingAmount))}</p>
+                  <p>&#36;{fixedDecimalValue(fixedDecimalValueOfTwoAddedValues(fixedDecimalValueOfTwoAddedValues(cartOverallTotal(carts), totalShippingAmount) / 10, fixedDecimalValueOfTwoAddedValues(cartOverallTotal(carts), totalShippingAmount)))}</p>
                 </div>
               </div>
               <div>

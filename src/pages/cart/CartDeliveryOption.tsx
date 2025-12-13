@@ -1,12 +1,12 @@
 import type React from "react";
 import { useEffect, useState } from "react";
 import type { CartType } from "../../interfaces/carts";
-import fixedDecimalValue from "../../utils/fixedDecimalValue";
+import { fixedDecimalValue } from "../../utils/fixedDecimalValue";
 import { type DeliveryOption } from "../../interfaces/deliveryOption";
 
 interface DeliveryOptionCartProp {
   cart: CartType;
-  setTotalShipping:React.Dispatch<React.SetStateAction<DeliveryOption[]>>
+  setTotalShipping: React.Dispatch<React.SetStateAction<DeliveryOption[]>>
 }
 
 export default function CartDeliveryOption({ cart, setTotalShipping }: DeliveryOptionCartProp) {
@@ -20,22 +20,22 @@ export default function CartDeliveryOption({ cart, setTotalShipping }: DeliveryO
     setDeliveryOption({ id: id, date: date, shippingPrice: shippingPrice })
   }
   const totalValue = cart.total
-  useEffect(()=>{
-    setTotalShipping(prev=>{
-      const existing = prev.find(item=>item.id === deliveryOption.id)
-      if(existing){
-        const updated = prev.map(item=>item.id === deliveryOption.id 
-          ? {...item, shippingPrice:deliveryOption.shippingPrice}
+  useEffect(() => {
+    setTotalShipping(prev => {
+      const existing = prev.find(item => item.id === deliveryOption.id)
+      if (existing) {
+        const updated = prev.map(item => item.id === deliveryOption.id
+          ? { ...item, shippingPrice: deliveryOption.shippingPrice }
           : item
         )
         return updated
       }
-      else{
-        const updated = [...prev,deliveryOption]
+      else {
+        const updated = [...prev, deliveryOption]
         return updated
       }
     })
-  },[deliveryOption])
+  }, [deliveryOption])
   return (
     <div key={cart.products[0].id} className="bg-white mb-4 w-200 h-70 p-4 border border-gray-300 rounded-[5px] shadow-[0_0_2px_rgba(0,0,0,0.1)]">
       <div className="text-[18px] font-bold text-red-700">Delivery date: {deliveryOption.date}</div>

@@ -3,6 +3,7 @@ import React from "react";
 import { type ProductType, type ProductsList } from "../../interfaces/products";
 import Product from "./Product";
 import { type CartType } from "../../interfaces/carts";
+import { fixedDecimalValueOfTwoAddedValues } from "../../utils/fixedDecimalValue";
 
 interface ProductsProps {
   carts: CartType[];
@@ -28,15 +29,15 @@ export default function Products({ setCarts, products, setTotalAddToCartAmount }
           const updated = prev.map(item => item.products[0].id === response.data.products[0].id
             ? {
               ...item,
-              discountedTotal: item.discountedTotal + response.data.discountedTotal,
+              discountedTotal: fixedDecimalValueOfTwoAddedValues(item.discountedTotal, response.data.discountedTotal),
               products: [{
                 ...item.products[0],
-                discountedPrice: item.products[0].discountedPrice + response.data.products[0].discountedPrice,
-                quantity: item.products[0].quantity + response.data.products[0].quantity,
-                total: item.products[0].total + response.data.products[0].total
+                discountedPrice: fixedDecimalValueOfTwoAddedValues(item.products[0].discountedPrice, response.data.products[0].discountedPrice),
+                quantity: fixedDecimalValueOfTwoAddedValues(item.products[0].quantity, response.data.products[0].quantity),
+                total: fixedDecimalValueOfTwoAddedValues(item.products[0].total, response.data.products[0].total)
               }],
-              total: item.total + response.data.total,
-              totalQuantity: item.totalQuantity + response.data.totalQuantity
+              total: fixedDecimalValueOfTwoAddedValues(item.total, response.data.total),
+              totalQuantity: fixedDecimalValueOfTwoAddedValues(item.totalQuantity, response.data.totalQuantity)
             }
             : item
           )
