@@ -3,8 +3,16 @@ import type { AddToCartProps } from "../../interfaces/addToCartAmount";
 import CartDeliveryOption from "./CartDeliveryOption";
 import { cartOverallTotal } from "../../utils/cartOverallTotal";
 import fixedDecimalValue from "../../utils/fixedDecimalValue";
+import { useState } from "react";
+import type { DeliveryOption } from "../../interfaces/deliveryOption";
+
 
 export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
+  const [totalShipping, setTotalShipping] = useState<DeliveryOption[]>([])
+  const totalShippingAmount = totalShipping.reduce((sum, item) => sum + JSON.parse(item.shippingPrice), 0)
+
+  console.log(totalShipping)
+
   return (
     <div>
       <div className="bg-gradient-to-l from-orange-500 to-red-500 flex h-30 items-center">
@@ -37,7 +45,7 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
             <div>
               {carts.map(cart => {
                 return (
-                  <CartDeliveryOption cart={cart} key={cart.products[0].id} />
+                  <CartDeliveryOption cart={cart} key={cart.products[0].id} setTotalShipping={setTotalShipping} />
                 );
               })}
             </div>
@@ -52,7 +60,7 @@ export default function Cart({ carts, totalAddToCartAmount }: AddToCartProps) {
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Shipping & handling:</p>
-                  <p>&#36;4.99</p>
+                  <p>&#36;{fixedDecimalValue(totalShippingAmount)}</p>
                 </div>
                 <div className="flex justify-between py-1">
                   <p>Total before tax:</p>

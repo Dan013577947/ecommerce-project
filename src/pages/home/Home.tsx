@@ -6,8 +6,10 @@ import Footer from "../../components/Footer";
 import { useState, useEffect } from "react";
 import type { AddToCartProps } from "../../interfaces/addToCartAmount";
 
+
 export default function Home({ totalAddToCartAmount, setTotalAddToCartAmount, carts, setCarts }: AddToCartProps) {
   const [productsList, setProductsList] = useState<ProductsList | null>(null);
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -21,7 +23,6 @@ export default function Home({ totalAddToCartAmount, setTotalAddToCartAmount, ca
     }
     fetchProducts()
   }, [])
-
 
   return (
     <div>
